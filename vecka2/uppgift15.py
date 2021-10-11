@@ -33,3 +33,4 @@ def countLetterAndDigits():
         if character.isdigit():  # för varje siffra så läggs +1 till i numberCount
             numberCount += 1
         elif character.isalpha():  # för varje bokstav så läggs +1 till i letterCount
+            continue
