@@ -8,6 +8,7 @@ def reverse(text: str) -> str:
         ny_lista.append(text[len(text) - count])
         count += 1
     return "".join(ny_lista)
+    
 
 
 def reverse2(text: str) -> str:

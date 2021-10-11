@@ -4,8 +4,11 @@ PHONEBOOK = "phonebook.json"
 
 
 def load_phonebook():
-    with open(PHONEBOOK) as f:
-        return json.load(f)
+    try:
+        with open(PHONEBOOK) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return False
 
 
 def save_phonebook(pb):
@@ -29,26 +32,29 @@ def get_new_entry():
 
 def main():
     phonebook = load_phonebook()
-
-    while True:
-        print_menu()
-        v = input(">")
-        if v == "1":
-            for p in phonebook:
-                print(f"{p}: {phonebook[p]}")
-        elif v == "2":
-            name, number = get_new_entry()
-            phonebook[name] = number
-        elif v == "3":
-            name = input("Name to delete>")
-            try:
-                del phonebook[name]
-            except KeyError:
-                print(f"Entry {name} not found")
-        elif v == "4":
-            save_phonebook(phonebook)
-        else:
-            break
+    if phonebook is not False:
+        while True:
+            print_menu()
+            v = input(">")
+            if v == "1":
+                for p in phonebook:
+                    print(f"{p}: {phonebook[p]}")
+            elif v == "2":
+                name, number = get_new_entry()
+                phonebook[name] = number
+                save_phonebook(phonebook)
+            elif v == "3":
+                name = input("Name to delete>")
+                try:
+                    del phonebook[name]
+                except KeyError:
+                    print(f"Entry {name} not found")
+            elif v == "4":
+                save_phonebook(phonebook)
+            else:
+                break
+    else:
+        print('Tyvärr fanns det ingen katalog. Programmet kunde inte startas.')
 
 
 if __name__ == '__main__':
