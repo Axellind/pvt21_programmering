@@ -1,4 +1,5 @@
 import requests
+import math
 from pprint import pprint
 
 URL = 'https://www.omdbapi.com/'
@@ -15,12 +16,17 @@ def get_movie_info(name):
 
 
 def search_movie(movie):
-    parameters = {'s': movie, 'apiKey': API_KEY}
+    parameters = {'s': movie, 'apiKey': API_KEY, 'page': '2'}
 
     r = requests.get(URL, params=parameters).json()
     if r["Response"] == 'True':
-        print('response true: ')
+        #pprint(r)
+        # print(r["totalResults"])
+        # print('response true: ')
+        # pages = int(r["totalResults"])//10 + 1
+        # print('pages: ', pages)
         for number, movie in enumerate(r["Search"]):
+            print('Saved movie: ', movie)
             search_results[number+1] = movie
 
 
